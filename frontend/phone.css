@@ -1,0 +1,26 @@
+/* Responsive styles for iPhones */
+@media screen and (max-width: 600px) {
+  h1 {
+    margin-top: 80px;
+  }
+  .vote-container {
+    height: 20vh;
+  }
+  .vote-btn {
+    padding: 15px 15px;
+    margin: 15px;
+  }
+
+  .vote-count {
+    font-size: 24px;
+  }
+
+  .logoimg {
+    width: 100px;
+  }
+}
+@media (max-height: 485px) {
+  .vote-count {
+    margin-top: 15px;
+  }
+}

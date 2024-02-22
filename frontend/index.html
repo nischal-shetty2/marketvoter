@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bullish or Bearish Voting</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="phone.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <img class="logoimg" src="mv logo.PNG" />
+      </div>
+      <div class="nav-buttons">
+        <a
+          href="https://in.tradingview.com/chart/?symbol=NSE%3ANIFTY"
+          target="_blank"
+          >Chart</a
+        >
+        <a href="https://linktr.ee/nischal.shetty">Contact Me</a>
+      </div>
+    </div>
+    <h1>Nifty</h1>
+    <h2>How do you think the market will react today?</h2>
+
+    <div class="vote-container">
+      <button
+        class="vote-btn bullish-btn"
+        onclick="vote('bullish')"
+        id="bullishBtn">
+        Bullish
+      </button>
+      <button
+        class="vote-btn bearish-btn"
+        onclick="vote('bearish')"
+        id="bearishBtn">
+        Bearish
+      </button>
+    </div>
+
+    <div class="vote-count" id="voteCount">Vote Now!</div>
+
+    <div class="chart-container">
+      <canvas id="voteChart"></canvas>
+    </div>
+    <div class="contact-details">
+      <p id="insta">
+        Instagram:
+        <a href="https://www.instagram.com/nischal.shetty_2"
+          >nischal.shetty_2</a
+        >
+      </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
