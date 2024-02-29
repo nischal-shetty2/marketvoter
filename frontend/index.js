@@ -2,9 +2,7 @@ let hasVoted = false;
 
 async function bullishVotes() {
   try {
-    const response = await fetch(
-      "https://marketvoter-backend.vercel.app/bullish"
-    );
+    const response = await fetch("https://marketvoter-1.onrender.com/bullish");
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
@@ -19,9 +17,7 @@ async function bullishVotes() {
 
 async function bearishVotes() {
   try {
-    const response = await fetch(
-      "https://marketvoter-backend.vercel.app/bearish"
-    );
+    const response = await fetch("https://marketvoter-1.onrender.com/bearish");
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
@@ -67,7 +63,7 @@ async function vote(direction) {
     }
 
     const response = await fetch(
-      `https://marketvoter-backend.vercel.app/${direction}`,
+      `https://marketvoter-1.onrender.com/${direction}`,
       {
         method: "PUT",
         body: JSON.stringify(updateData),
