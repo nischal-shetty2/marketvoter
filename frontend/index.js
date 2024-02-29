@@ -50,80 +50,67 @@ var myChart = new Chart(voteChartCanvas, {
 });
 
 async function vote(direction) {
-  let bullishData = await bullishVotes();
-  let bearishData = await bearishVotes();
-
   if (!hasVoted) {
-    let updateData;
+    let [bullishData, bearishData] = await Promise.all([
+      bullishVotes(),
+      bearishVotes(),
+    ]);
 
-    if (direction === "bullish") {
-      updateData = { bullish: bullishData + 1 };
-    } else if (direction === "bearish") {
-      updateData = { bearish: bearishData + 1 };
-    }
+    try {
+      // Ensure both values are numeric
+      if (isNaN(bullishData) || isNaN(bearishData)) {
+        throw new Error("Invalid numeric values");
+      }
+      let updateData;
 
-    const response = await fetch(
-      `https://marketvoter-1.onrender.com/${direction}`,
-      {
+      if (direction === "bullish") {
+        updateData = { bullish: bullishData + 1 };
+      } else if (direction === "bearish") {
+        updateData = { bearish: bearishData + 1 };
+      }
+
+      fetch(`https://marketvoter-1.onrender.com/${direction}`, {
         method: "PUT",
         body: JSON.stringify(updateData),
         headers: {
           "Content-type": "application/json",
         },
+      });
+
+      // Increment local variables
+      if (direction === "bullish") {
+        bullishData++;
+      } else if (direction === "bearish") {
+        bearishData++;
       }
-    );
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      // Recalculate percentages after updating votes
+
+      let totalVotes = bullishData + bearishData;
+
+      if (totalVotes === 0) {
+        throw new Error("Total votes is zero (division by zero error)");
+      }
+
+      let bullishPercentage = ((bullishData / totalVotes) * 100).toFixed(2);
+      let bearishPercentage = ((bearishData / totalVotes) * 100).toFixed(2);
+
+      document.getElementById("voteCount").innerHTML =
+        "Bullish: " +
+        bullishPercentage +
+        "%, Bearish: " +
+        bearishPercentage +
+        "%";
+    } catch (error) {
+      console.error("Error:", error.message);
+      // Handle the error as needed (e.g., set percentages to 0)
+      document.getElementById("voteCount").innerHTML = "Error fetching data";
     }
-
-    // Increment local variables
-    if (direction === "bullish") {
-      bullishData++;
-    } else if (direction === "bearish") {
-      bearishData++;
-    }
-
-    // Recalculate percentages after updating votes
-    updatePercentages();
 
     // Update the chart data and redraw
     myChart.data.datasets[0].data = [bullishData, bearishData];
     myChart.update();
 
     hasVoted = true;
-  }
-}
-
-async function updatePercentages() {
-  try {
-    let bullishData = await bullishVotes();
-    let bearishData = await bearishVotes();
-
-    // Ensure both values are numeric
-    if (isNaN(bullishData) || isNaN(bearishData)) {
-      throw new Error("Invalid numeric values");
-    }
-
-    let totalVotes = bullishData + bearishData;
-
-    if (totalVotes === 0) {
-      throw new Error("Total votes is zero (division by zero error)");
-    }
-
-    let bullishPercentage = ((bullishData / totalVotes) * 100).toFixed(2);
-    let bearishPercentage = ((bearishData / totalVotes) * 100).toFixed(2);
-
-    document.getElementById("voteCount").innerHTML =
-      "Bullish: " +
-      bullishPercentage +
-      "%, Bearish: " +
-      bearishPercentage +
-      "%";
-  } catch (error) {
-    console.error("Error updating percentages:", error.message);
-    // Handle the error as needed (e.g., set percentages to 0)
-    document.getElementById("voteCount").innerHTML =
-      "Error updating percentages";
   }
 }
