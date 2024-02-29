@@ -11,6 +11,7 @@ body {
 h1,
 h2 {
   text-align: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .header {
@@ -20,17 +21,18 @@ h2 {
 }
 
 /* logo */
+
 .logo {
   max-width: 100px;
   height: auto;
 }
 .logoimg {
   filter: invert(100%);
-  width: 120%;
+  width: 200%;
   transition: transform 0.2s;
 }
 .logoimg:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
   cursor: pointer;
 }
 
