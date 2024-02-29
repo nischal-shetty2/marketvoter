@@ -1,7 +1,7 @@
 const express = require("express");
 const { bullishS, bearishS } = require("./db");
 const dotenv = require("dotenv");
-dotenv.config({ path: __dirname + "/.env" });
+dotenv.config();
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
@@ -52,6 +52,6 @@ app.put("/bearish", async (req, res) => {
   }
 });
 
-app.listen(PORT||3000, () => {
+app.listen(PORT || 3000, () => {
   console.log(`Listening on port ${PORT}`);
 });
