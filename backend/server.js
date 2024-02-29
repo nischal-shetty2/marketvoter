@@ -5,8 +5,19 @@ dotenv.config();
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://marketvoter-backend.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  console.log("server running on vercel");
+  res.json({ msg: "backend api for market-voter" });
+});
 
 app.get("/bullish", async (req, res) => {
   try {
