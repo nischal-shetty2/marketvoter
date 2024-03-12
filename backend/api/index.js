@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { bullishS, bearishS } = require("./db");
+const { bullishS, bearishS } = require("../db");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
