@@ -1,31 +1,31 @@
 let hasVoted = false;
-
+const url = "https://marketvoter-1.onrender.com";
 async function bullishVotes() {
   try {
-    const response = await fetch("https://marketvoter-1.onrender.com/bullish");
+    const response = await fetch(`${url}/bullish`);
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
     const jsonData = await response.json();
     return jsonData.bullish;
   } catch (error) {
-    alert("server is currently down! Please try again later");
-    console.error("Error fetching bullish votes:", error.message);
+    document.getElementById("voteCount").innerHTML =
+      "Server is currently down! please try again later";
     throw error;
   }
 }
 
 async function bearishVotes() {
   try {
-    const response = await fetch("https://marketvoter-1.onrender.com/bearish");
+    const response = await fetch(`${url}/bearish`);
     if (!response.ok) {
       throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
     const jsonData = await response.json();
     return jsonData.bearish;
   } catch (error) {
-    alert("server is currently down! Please try again later");
-    console.error("Error fetching bearish votes:", error.message);
+    document.getElementById("voteCount").innerHTML =
+      "Server is currently down! please try again later";
     throw error;
   }
 }
@@ -69,7 +69,7 @@ async function vote(direction) {
         updateData = { bearish: bearishData + 1 };
       }
 
-      fetch(`https://marketvoter-1.onrender.com/${direction}`, {
+      fetch(`${url}/${direction}`, {
         method: "PUT",
         body: JSON.stringify(updateData),
         headers: {
@@ -102,7 +102,6 @@ async function vote(direction) {
         bearishPercentage +
         "%";
     } catch (error) {
-      console.error("Error:", error.message);
       // Handle the error as needed (e.g., set percentages to 0)
       document.getElementById("voteCount").innerHTML = "Error fetching data";
     }
