@@ -1,5 +1,5 @@
 let hasVoted = false;
-const url = "https://marketvoter-1.onrender.com";
+const url = "https://marketvoter-backend.vercel.app";
 async function bullishVotes() {
   try {
     const response = await fetch(`${url}/bullish`);
