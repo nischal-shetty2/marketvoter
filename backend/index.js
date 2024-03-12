@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const { bullishS, bearishS } = require("./db");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -6,7 +7,7 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT;
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.json({ msg: "backend api for market-voter" });
@@ -17,7 +18,7 @@ app.get("/bullish", async (req, res) => {
     const bullish = await bullishS.findOne({});
     res.json(bullish);
   } catch (error) {
-console.error("Error fetching bullish votes:", error);
+    console.error("Error fetching bullish votes:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -27,7 +28,7 @@ app.get("/bearish", async (req, res) => {
     const bearish = await bearishS.findOne({});
     res.json(bearish);
   } catch (error) {
-console.error("Error fetching bearish votes:", error);
+    console.error("Error fetching bearish votes:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
