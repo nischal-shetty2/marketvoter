@@ -9,4 +9,6 @@
 -You can gauge that day's market sentiment by observing how people vote 
 
 and make informed decisions accordingly.
+
+-build using reactJS + mongodb + nodejs
 </div>
